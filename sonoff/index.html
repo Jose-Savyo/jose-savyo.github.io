@@ -71,19 +71,20 @@
     });
 }
     
-    function enviarComando(acao) {
-        const senhaInput = document.getElementById("senha").value;
-        if (!senhaInput) {
-            alert("Por favor, insira a senha antes de enviar o comando.");
-            return;
-        }
-        
-        // Montagem do payload seguro: "SENHA:COMANDO"
-        const payloadFinal = senhaInput + ":" + acao;
-        const message = new Paho.MQTT.Message(payloadFinal);
-        message.destinationName = topicCmd;
-        client.send(message);
+    // Altere a função JavaScript para este formato parametrizado:
+function enviarComando(ledIndex, acao) {
+    const senhaInput = document.getElementById("senha").value;
+    if (!senhaInput) {
+        alert("Por favor, insira a senha antes de enviar o comando.");
+        return;
     }
+    
+    // Montagem do novo payload estruturado: "SENHA:LED_INDEX:ESTADO"
+    const payloadFinal = senhaInput + ":" + ledIndex + ":" + acao;
+    const message = new Paho.MQTT.Message(payloadFinal);
+    message.destinationName = topicCmd;
+    client.send(message);
+}
     
     // Inicializa a conexão ao carregar a página
     conectarBroker();
