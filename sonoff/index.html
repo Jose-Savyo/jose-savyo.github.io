@@ -57,17 +57,18 @@
     };
     
     function conectarBroker() {
-        client.connect({
-            onSuccess: () => {
-                document.getElementById("status-display").innerText = "Conectado. Aguardando comandos.";
-                client.subscribe(topicStatus);
-            },
-            onFailure: () => {
-                document.getElementById("status-display").innerText = "Falha na conexão. Retentando...";
-                setTimeout(conectarBroker, 5000);
-            }
-        });
-    }
+    client.connect({
+        useSSL: true, // Força o uso de criptografia TLS para alinhar com o HTTPS do GitHub
+        onSuccess: () => {
+            document.getElementById("status-display").innerText = "Conectado. Aguardando comandos.";
+            client.subscribe(topicStatus);
+        },
+        onFailure: () => {
+            document.getElementById("status-display").innerText = "Falha na conexão. Retentando...";
+            setTimeout(conectarBroker, 5000);
+        }
+    });
+}
     
     function enviarComando(acao) {
         const senhaInput = document.getElementById("senha").value;
