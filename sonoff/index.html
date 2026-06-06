@@ -64,7 +64,8 @@
             client.subscribe(topicStatus);
         },
         onFailure: () => {
-            document.getElementById("status-display").innerText = "Falha na conexão. Retentando...";
+            console.log(error);
+            document.getElementById("status-display").innerText = "Falha na conexão. Reconectando...";
             setTimeout(conectarBroker, 5000);
         }
     });
